@@ -7,7 +7,7 @@
 - [Docker](https://www.docker.com/): Docker takes away repetitive, mundane configuration tasks and is used throughout the development lifecycle for fast, easy and portable application development - desktop and cloud. Docker’s comprehensive end to end platform includes UIs, CLIs, APIs and security that are engineered to work together across the entire application delivery lifecycle.
 - [Docker Compose](https://docs.docker.com/compose/gettingstarted/): Docker Compose relies on Docker Engine for any meaningful work, so make sure you have Docker Engine installed either locally or remote, depending on your setup.
 - [NodeJs](https://nodejs.org/en/): Node.js® is a JavaScript runtime built on [Chrome's V8 JavaScript engine](https://v8.dev/). 
-- [DevExpress](https://www.devexpress.com/): Your next great app starts here.
+- [DevExtreme](https://js.devexpress.com/): JavaScript Component Suite for Responsive Web Development
 
 ## Requirements
 
@@ -20,8 +20,8 @@
 - ### **1-** Clone de project  from Github
 
 ```bash
-$> git clone https://github.com/alexeidzoto/demo-devexpress.git
-$> cd demo-devexpress
+$> git clone https://github.com/alexeidzoto/demo-devextreme.git
+$> cd demo-devextreme
 ```
 
 - ### 2- Deploy ServiceStack with Chinook database
@@ -58,10 +58,10 @@ REACT_APP_AUTH0_CLIENT_ID="Client ID from STEP 3"
 REACT_APP_SERVICESTACK_API="http://localhost:8090"
 ```
 
-- ### 5- Deploy Demo I+D
+- ### 5- Deploy Demo DevExtreme
 
 ```bash
-$> npm run start-demoid
+$> npm run start:demodev
 ```
 
 ## Usage
@@ -70,9 +70,6 @@ $> npm run start-demoid
 
 -  http://localhost:8090/metadata
 
-
-
-> **Demo I+D**
+> **Demo DevExtreme**
 
 - http://localhost:3000
-

@@ -7,7 +7,7 @@
   "scripts": {
     "start:chinook": "cd ./stack/db/chinook && docker-compose up -d --build",
     "stop:chinook": "cd ./stack/db/chinook && docker-compose down",
-    "start:demoid": "cd ./apps/react-materialui-devexpress && docker-compose up -d --build",
-    "stop:demoid": "cd ./apps/react-materialui-devexpress && docker-compose down"
+    "start:demodev": "cd ./apps/react-materialui-devextreme && docker-compose up -d --build",
+    "stop:demodev": "cd ./apps/react-materialui-devextreme && docker-compose down"
   }
 }
