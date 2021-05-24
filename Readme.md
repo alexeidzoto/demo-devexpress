@@ -1,4 +1,4 @@
-# Demo I+D
+# Demo DevExpress
 ## Tecnology Stack
 
 - [Service Stack](https://servicestack.net/): One framework to power them all. Write your HTTP APIs once and take advantage of end to end typed integrations for all popular Web, Mobile and Desktop platforms.
@@ -7,10 +7,11 @@
 - [Docker](https://www.docker.com/): Docker takes away repetitive, mundane configuration tasks and is used throughout the development lifecycle for fast, easy and portable application development - desktop and cloud. Docker’s comprehensive end to end platform includes UIs, CLIs, APIs and security that are engineered to work together across the entire application delivery lifecycle.
 - [Docker Compose](https://docs.docker.com/compose/gettingstarted/): Docker Compose relies on Docker Engine for any meaningful work, so make sure you have Docker Engine installed either locally or remote, depending on your setup.
 - [NodeJs](https://nodejs.org/en/): Node.js® is a JavaScript runtime built on [Chrome's V8 JavaScript engine](https://v8.dev/). 
+- [DevExpress](https://www.devexpress.com/): Your next great app starts here.
 
 ## Requirements
 
-- Node version 10
+- Node version 14
 - Docker version 20.10.5, build 55c4c88
 - docker-compose version 1.29.0, build 07737305
 
@@ -19,8 +20,8 @@
 - ### **1-** Clone de project  from Github
 
 ```bash
-$> git clone https://github.com/alexeidzoto/demo-tech.git
-$> cd demo-tech
+$> git clone https://github.com/alexeidzoto/demo-devexpress.git
+$> cd demo-devexpress
 ```
 
 - ### 2- Deploy ServiceStack with Chinook database
