@@ -1,0 +1,20 @@
+version: "3.9"
+
+# >>> SERVICES >>>
+services:
+  # >>> SERVICE STACK >>>
+  chinook-restapi:
+    build: .
+    image: asp/chinook:1.0.0
+    container_name: chinook-restapi
+    restart: always
+    ports:
+      - "8090:80"
+    networks:
+      - chinook-network
+  # <<< SERVICE STACK <<<
+
+# >>> NETWORKS >>>
+networks:
+  chinook-network:
+    name: chinook-network

@@ -1,0 +1,6 @@
+{
+  "name": "Genres",
+  "version": "0.0.0",
+  "main": "Genres.tsx",
+  "private": true
+}

@@ -1,0 +1,6 @@
+{
+  "name": "AuthoHelp",
+  "version": "0.0.0",
+  "main": "AuthoHelp.tsx",
+  "private": true
+}

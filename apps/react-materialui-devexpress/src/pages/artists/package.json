@@ -1,0 +1,6 @@
+{
+  "name": "Artists",
+  "version": "0.0.0",
+  "main": "Artists.tsx",
+  "private": true
+}

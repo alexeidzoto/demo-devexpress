@@ -1,0 +1,6 @@
+{
+  "name": "MediaTypes",
+  "version": "0.0.0",
+  "main": "MediaTypes.tsx",
+  "private": true
+}

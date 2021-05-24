@@ -1,0 +1,1623 @@
+{
+	"info": {
+		"_postman_id": "8398a438-17ba-4adb-a3b8-c17872f0aa85",
+		"name": "Chinook Catalog Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "Get Employees",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employees by Employee Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/employees/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"employees",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employees by Query Parameters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"employees"
+							],
+							"query": [
+								{
+									"key": "first-name",
+									"value": "jane",
+									"disabled": true
+								},
+								{
+									"key": "last-name",
+									"value": "edwards",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "general manager",
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "jasper",
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "calgary",
+									"disabled": true
+								},
+								{
+									"key": "state",
+									"value": "ab",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "canada",
+									"disabled": true
+								},
+								{
+									"key": "code",
+									"value": "T1K 5N8",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "+1 (403) 456-9986",
+									"disabled": true
+								},
+								{
+									"key": "fax",
+									"value": "+1 (403) 262-6712",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "laura@chinookcorp.com",
+									"disabled": true
+								},
+								{
+									"key": "from-birthdate",
+									"value": "gte:1960-01-01",
+									"disabled": true
+								},
+								{
+									"key": "to-birthdate",
+									"value": "lte:1970-01-01",
+									"disabled": true
+								},
+								{
+									"key": "from-hiredate",
+									"value": "gte:2003-01-01",
+									"disabled": true
+								},
+								{
+									"key": "to-hiredate",
+									"value": "lte:2004-01-01",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "last-name",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "4",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Employee",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function getRandomBirthDate() {",
+									"    const year = _.random(1960,2000);",
+									"    const month = _.random(1,12);",
+									"    const day = _.random(1,28);",
+									"    return `${year}-${month}-${day}`;",
+									"}",
+									"",
+									"function getHireDate() {",
+									"    const now = new Date();",
+									"    const year = now.getFullYear();",
+									"    const month = now.getMonth() + 1;",
+									"    const day = now.getDate();",
+									"    return `${year}-${month}-${day}`;",
+									"}",
+									"",
+									"pm.environment.set('$randomBirthDate', getRandomBirthDate());",
+									"pm.environment.set('$hireDate', getHireDate());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"FirstName\": \"{{$randomFirstName}}\",\n\t\"LastName\": \"{{$randomLastName}}\",\n\t\"Title\": \"{{$randomJobTitle}}\",\n\t\"BirthDate\": \"{{$randomBirthDate}}\",\n\t\"HireDate\": \"{{$hireDate}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employee Address",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"address\": \"{{$randomStreetAddress}}\",\n\t\"city\": \"{{$randomCity}}\",\n\t\"country\": \"{{$randomCountry}}\",\n\t\"state\": \"{{$randomLoremWord}}\",\n\t\"postalCode\": \"{{$randomInt}}{{$randomInt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/employees/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"employees",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tracks",
+			"item": [
+				{
+					"name": "Get Tracks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/tracks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"tracks"
+							],
+							"query": [
+								{
+									"key": "album",
+									"value": "powerslave",
+									"disabled": true
+								},
+								{
+									"key": "artist",
+									"value": "ac/dc",
+									"disabled": true
+								},
+								{
+									"key": "composer",
+									"value": "smith",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "tv",
+									"disabled": true
+								},
+								{
+									"key": "media-type",
+									"value": "mpeg",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "phantom",
+									"disabled": true
+								},
+								{
+									"key": "price-from",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "price-to",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "-name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tracks By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/tracks/22",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"tracks",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tracks for playlist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/playlists/1/tracks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"playlists",
+								"1",
+								"tracks"
+							],
+							"query": [
+								{
+									"key": "album",
+									"value": "powerslave",
+									"disabled": true
+								},
+								{
+									"key": "artist",
+									"value": "ac/dc",
+									"disabled": true
+								},
+								{
+									"key": "composer",
+									"value": "smith",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "tv",
+									"disabled": true
+								},
+								{
+									"key": "media-type",
+									"value": "mpeg",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "phantom",
+									"disabled": true
+								},
+								{
+									"key": "price-from",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "price-to",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "-name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tracks Options",
+					"request": {
+						"method": "OPTIONS",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/tracks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"tracks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tracks By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/tracks/100002",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"tracks",
+								"100002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Track",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Party Now - {{$guid}}\",\n\t\"composer\": \"Bob\",\n\t\"price\": 2.5,\n\t\"bytes\": 234234,\n\t\"milliseconds\": 42343,\n\t\"albumId\": 3,\n\t\"genreId\": 1,\n\t\"mediaTypeId\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/tracks/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"tracks",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Track",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Party Now - {{$guid}}\",\n\t\"composer\": \"My Update\",\n\t\"price\": 4.5,\n\t\"bytes\": 23234,\n\t\"milliseconds\": 423,\n\t\"albumId\": 2,\n\t\"genreId\": 2,\n\t\"mediaTypeId\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/tracks/100003",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"tracks",
+								"100003"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Playlists",
+			"item": [
+				{
+					"name": "Tracks",
+					"item": [
+						{
+							"name": "Add Tracks To Playlist",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8090/playlists/1/tracks/1,2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"playlists",
+										"1",
+										"tracks",
+										"1,2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Tracks From Playlist",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8090/playlists/1015/tracks/5,10,1,2,3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"playlists",
+										"1015",
+										"tracks",
+										"5,10,1,2,3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Playlists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/playlists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"playlists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "classical",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Playlists By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/playlists/31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"playlists",
+								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Playlists by Tracks By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/tracks/1/playlists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"tracks",
+								"1",
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete playlist by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/playlists/37",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"playlists",
+								"37"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get OPTIONS",
+					"request": {
+						"method": "OPTIONS",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/playlists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create playlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Top 100 - {{$guid}}\",\r\n    \"trackIds\": [ ]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/playlists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update playlist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Top 100 - {{$guid}}\",\r\n\t\"trackIds\": [ 5, 10, 15, 20, 25 ]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/playlists/34",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"playlists",
+								"34"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "Get Artists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/artists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"artists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "classical",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/artists/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"artists",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Artist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Top 100 - {{$guid}}\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/artists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Artist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Top 100 - {{$guid}}\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/artists/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"artists",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Artist by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/artists/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"artists",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genres",
+			"item": [
+				{
+					"name": "Get Genres",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/genres",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"genres"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "classical",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Genre By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/genres/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"genres",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Genre",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Top 100 - {{$guid}}\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/genres",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Genre",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Top 100 - {{$guid}}\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/genres/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"genres",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Genre by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/genres/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"genres",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MediaTypes",
+			"item": [
+				{
+					"name": "Get MediaTypes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/mediatypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"mediatypes"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "classical",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get MediaType By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/mediatypes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"mediatypes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create MediaType",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Top 100 - {{$guid}}\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/mediatypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"mediatypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update MediaType",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Top 100 - {{$guid}}\",\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/mediatypes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"mediatypes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete MediaType by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/mediatypes/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"mediatypes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Get Albums",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "classical",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Album By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/albums/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"albums",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Album",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\": \"Top 100 - {{$guid}}\",\r\n    \"artistId\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Album",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\": \"Top 100 - {{$guid}}\",\r\n    \"artistId\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/albums/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Album by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/albums/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"albums",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

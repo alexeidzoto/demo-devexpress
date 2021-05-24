@@ -1,0 +1,6 @@
+{
+  "name": "Albums",
+  "version": "0.0.0",
+  "main": "Albums.tsx",
+  "private": true
+}
