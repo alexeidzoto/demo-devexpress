@@ -1,4 +1,4 @@
-# Demo DevExpress
+# Demo DevExtreme
 ## Tecnology Stack
 
 - [Service Stack](https://servicestack.net/): One framework to power them all. Write your HTTP APIs once and take advantage of end to end typed integrations for all popular Web, Mobile and Desktop platforms.
