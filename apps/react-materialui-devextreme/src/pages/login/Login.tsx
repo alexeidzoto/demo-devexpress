@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import {
   Grid,
-  CircularProgress,
   Typography,
-  Button,
-  Tabs,
-  Tab,
-  TextField,
-  Fade,
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { LoginButtonAuthO } from "../../components/ButtonAuthO";
@@ -18,8 +12,24 @@ import useStyles from "./styles";
 // logo
 import logo from "../../assets/images/logo.png";
 
+import Form, {
+  SimpleItem,
+  RequiredRule,
+  ButtonItem,
+  ButtonOptions
+} from 'devextreme-react/form';
+import Tabs from 'devextreme-react/tabs';
+import { tabs } from './data';
+
 // context
 import { useUserDispatch, loginUser } from "../../context/UserContext";
+import { LoginForm } from '../../domain/types';
+
+const initialLoginForm: LoginForm = {
+  name: "Admin Flatlogic",
+  email: "admin@flatlogic.com",
+  password: "password",
+}
 
 function Login(props: any) {
   const classes = useStyles();
@@ -28,13 +38,34 @@ function Login(props: any) {
   const userDispatch = useUserDispatch();
 
   // local
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<boolean | undefined>(undefined);
-  const [activeTabId, setActiveTabId] = useState(0);
-  const [nameValue, setNameValue] = useState("");
-  const [loginValue, setLoginValue] = useState("admin@flatlogic.com");
-  const [passwordValue, setPasswordValue] = useState("password");
+  const [, setIsLoading] = useState<boolean>(false);
+  const [, setError] = useState<boolean | undefined>(undefined);
+  const [activeTabId, setActiveTabId] = useState<number>(0);
 
+  const handleOptionChange = (e: any) => {
+    if(e.fullName === 'selectedIndex') {
+      setActiveTabId(e.value);
+    }
+  }
+
+  const handleSubmit = (e: React.SyntheticEvent) =>  {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      email: { value: string };
+      password: { value: string };
+    };
+    const email = target.email.value; // typechecks!
+    const password = target.password.value; // typechecks!
+    loginUser(
+      userDispatch,
+      email,
+      password,
+      props.history,
+      setIsLoading,
+      setError,
+    )
+  };
+    
   return (
     <Grid container className={classes.container}>
       <div className={classes.logotypeContainer}>
@@ -42,17 +73,12 @@ function Login(props: any) {
         <Typography className={classes.logotypeText}>DevExtreme with React</Typography>
       </div>
       <div className={classes.formContainer}>
-        <div className={classes.form}>
-          <Tabs
-            value={activeTabId}
-            onChange={(e, id) => setActiveTabId(id)}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab label="Login" classes={{ root: classes.tab }} />
-            <Tab label="New User" classes={{ root: classes.tab }} />
-          </Tabs>
+      <div className={classes.form}> 
+        <Tabs
+            dataSource={tabs}
+            selectedIndex={activeTabId}
+            onOptionChanged={handleOptionChange}
+        />
           {activeTabId === 0 && (
             <React.Fragment>
               <Typography variant="h1" className={classes.greeting}>
@@ -64,67 +90,29 @@ function Login(props: any) {
                 <Typography className={classes.formDividerWord}>or</Typography>
                 <div className={classes.formDivider} />
               </div>
-              <Fade in={error}>
-                <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong with your login or password :(
-                </Typography>
-              </Fade>
-              <TextField
-                id="email"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={loginValue}
-                onChange={e => setLoginValue(e.target.value)}
-                margin="normal"
-                placeholder="Email Adress"
-                type="email"
-                fullWidth
-              />
-              <TextField
-                id="password"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={passwordValue}
-                onChange={e => setPasswordValue(e.target.value)}
-                margin="normal"
-                placeholder="Password"
-                type="password"
-                fullWidth
-              />
-              <div className={classes.formButtons}>
-                {isLoading ? (
-                  <CircularProgress size={26} className={classes.loginLoader} />
-                ) : (
-                  <Button
-                    disabled={
-                      loginValue.length === 0 || passwordValue.length === 0
-                    }
-                    onClick={() =>
-                      loginUser(
-                        userDispatch,
-                        loginValue,
-                        passwordValue,
-                        props.history,
-                        setIsLoading,
-                        setError,
-                      )
-                    }
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                  >
-                    Login
-                  </Button>
-                )}
-              </div>
+              <form onSubmit={handleSubmit}>
+                <Form
+                  formData={initialLoginForm}
+                >
+                  <SimpleItem dataField="email">
+                    <RequiredRule
+                      message="Email is required"
+                    />
+                  </SimpleItem>
+                  <SimpleItem dataField="password">
+                    <RequiredRule
+                      message="Password is required"
+                    />
+                  </SimpleItem>
+                  <ButtonItem 
+                    horizontalAlignment="left">
+                    <ButtonOptions 
+                      text="Login"
+                      useSubmitBehavior={true}
+                    />  
+                  </ButtonItem>
+                </Form>
+              </form>
             </React.Fragment>
           )}
           {activeTabId === 1 && (
@@ -135,86 +123,39 @@ function Login(props: any) {
               <Typography variant="h2" className={classes.subGreeting}>
                 Create your account
               </Typography>
-              <Fade in={error}>
-                <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong with your login or password :(
-                </Typography>
-              </Fade>
-              <TextField
-                id="name"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={nameValue}
-                onChange={e => setNameValue(e.target.value)}
-                margin="normal"
-                placeholder="Full Name"
-                type="text"
-                fullWidth
-              />
-              <TextField
-                id="email"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={loginValue}
-                onChange={e => setLoginValue(e.target.value)}
-                margin="normal"
-                placeholder="Email Adress"
-                type="email"
-                fullWidth
-              />
-              <TextField
-                id="password"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={passwordValue}
-                onChange={e => setPasswordValue(e.target.value)}
-                margin="normal"
-                placeholder="Password"
-                type="password"
-                fullWidth
-              />
-              <div className={classes.creatingButtonContainer}>
-                {isLoading ? (
-                  <CircularProgress size={26} />
-                ) : (
-                  <Button
-                    onClick={() =>
-                      loginUser(
-                        userDispatch,
-                        loginValue,
-                        passwordValue,
-                        props.history,
-                        setIsLoading,
-                        setError,
-                      )
-                    }
-                    disabled={
-                      loginValue.length === 0 ||
-                      passwordValue.length === 0 ||
-                      nameValue.length === 0
-                    }
-                    size="large"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    className={classes.createAccountButton}
-                  >
-                    Create your account
-                  </Button>
-                )}
+              <div className={classes.formDividerContainer}>
+                <div className={classes.formDivider} />
+                <Typography className={classes.formDividerWord}></Typography>
+                <div className={classes.formDivider} />
               </div>
+              <form onSubmit={handleSubmit}>
+                <Form
+                  formData={initialLoginForm}
+                >
+                  <SimpleItem dataField="name">
+                    <RequiredRule
+                      message="Name is required"
+                    />
+                  </SimpleItem>
+                  <SimpleItem dataField="email">
+                    <RequiredRule
+                      message="Email is required"
+                    />
+                  </SimpleItem>
+                  <SimpleItem dataField="password">
+                    <RequiredRule
+                      message="Password is required"
+                    />
+                  </SimpleItem>
+                  <ButtonItem 
+                    horizontalAlignment="center">
+                    <ButtonOptions 
+                      text="Create account"
+                      useSubmitBehavior={true}
+                    />  
+                  </ButtonItem>
+                </Form>
+              </form>
             </React.Fragment>
           )}
         </div>
